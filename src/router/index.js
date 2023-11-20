@@ -2,16 +2,24 @@ import {createRouter, createWebHashHistory} from 'vue-router'
 
 const routes = [
     {
-        //路由初始指向
         path: '/',
         name: 'index',
-        component:()=>import('../components/index.vue'),
+        component:()=>import('../pages/index.vue'),
     },
     {
-        //路由初始指向
         path: '/test',
         name: 'test',
-        component:()=>import('../components/test.vue'),
+        component:()=>import('../pages/test.vue'),
+    },
+    {
+        path: '/utils',
+        name: 'utils',
+        component:()=>import('../pages/utils.vue'),
+    },
+    {
+        path: '/a',
+        name: 'a',
+        component:()=>import('../pages/a.vue'),
     }
 ]
 

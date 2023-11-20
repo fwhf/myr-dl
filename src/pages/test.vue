@@ -7,7 +7,7 @@ console.log(testData)
     <div class="height"></div>
 </template>
   
-<style scoped>
+<style scoped lang="scss">
 .height{
     height: 2000px;
 }

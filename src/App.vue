@@ -10,6 +10,6 @@ import wMenu from '@/components/w-menu.vue'
     </div>
 </template>
 
-<style>
+<style scoped lang="scss">
 
 </style>

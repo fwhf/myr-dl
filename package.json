@@ -10,8 +10,15 @@
   },
   "dependencies": {
     "element-plus": "^2.4.2",
+    "file-save": "^0.2.0",
+    "file-saver": "^2.0.5",
+    "mathjs": "^12.1.0",
+    "node-polyfill-webpack-plugin": "^2.0.1",
     "vue": "^3.3.8",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "xlsx": "^0.18.5",
+    "xlsx-style-medalsoft": "^0.8.13",
+    "xlsx-style-vite": "^0.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.5.0",

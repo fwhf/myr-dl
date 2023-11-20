@@ -15,9 +15,20 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     })
   ],
+  //加入这三行
+  externals: [{
+    './cptable': 'var cptable'
+  }],
   resolve: {
     alias: {
       "@": resolve(__dirname, "./src")
+    }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@import "./src/style/common.scss";'
+      }
     }
   },
 })
