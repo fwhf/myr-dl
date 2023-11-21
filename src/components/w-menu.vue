@@ -10,9 +10,10 @@
         来自外星的智慧助手
       </el-menu-item>
       <div class="flex-grow" />
-      <el-menu-item index="/test">测试</el-menu-item>
+      <!-- <el-menu-item index="/test">测试</el-menu-item> -->
       <el-menu-item index="/utils">工具</el-menu-item>
       <el-menu-item index="/a">用户侧超额获利回收费用</el-menu-item>
+      <el-menu-item index="/b">中长期曲线偏差回收费用</el-menu-item>
       <!-- <el-sub-menu index="2">
         <template #title>Workspace</template>
         <el-menu-item index="2-1">item one</el-menu-item>

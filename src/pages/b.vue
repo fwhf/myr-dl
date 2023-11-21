@@ -32,14 +32,15 @@ const tableData = ref([])
 // 表头
 const tableHead = reactive({
     a: '时段',
-    b: '日前申报量',
+    b: '中长期合约电量',
     c: '实际用电量',
-    d: '日前电价',
-    e: '实时电价',
-    f: '用户侧超额获利回收',
+    d: '日前月度电价',
+    e: '普通交易电价',
+    f: '中长期曲线偏差回收费用',
     g: '计算公式',
     h: '按小时求和'
 })
+
 const objectSpanMethod = ({
     row,
     column,
@@ -93,7 +94,6 @@ const preview = () => {
     if (!data) {
         return
     }
-    console.log(data)
 
     let newData = []
     data.forEach(item => {
@@ -119,25 +119,25 @@ const preview = () => {
 }
 
 const dowload = () => {
-    exportToExcel("用户侧超额获利回收");
+    exportToExcel("中长期曲线偏差回收费用");
 }
 
 const computedResult = (item) => {
-    if (item[tableHead.b] > math.multiplyTwo(item[tableHead.c], 1.2) && item[tableHead.e] > item[tableHead.d]) {
+    if (item[tableHead.b] < math.multiplyTwo(item[tableHead.c], 0.7) && math.multiplyTwo(item[tableHead.e], 1.1) > item[tableHead.d]) {
         let result = math.multiplyTwo(
-            math.subtractTwo(item[tableHead.b], math.multiplyTwo(item[tableHead.c], 1.2)),
-            math.subtractTwo(item[tableHead.e], item[tableHead.d]))
-        let formula = '(日前申报量 - 实际用电量 * 1.2) * (实时电价 - 日前电价)'
+                math.subtractTwo(math.multiplyTwo(item[tableHead.c], 0.7), item[tableHead.b]),
+                math.subtractTwo(math.multiplyTwo(item[tableHead.e], 1.1), item[tableHead.d]))
+        let formula = '(0.7 * 实际用电量 - 中长期合约电量) * (1.1 * 普通交易电价 - 日前月度电价)'
         return {
             result,
             formula
         }
     }
-    if (item[tableHead.b] < math.multiplyTwo(item[tableHead.c], 0.8) && item[tableHead.e] < item[tableHead.d]) {
+    if (item[tableHead.b] > math.multiplyTwo(item[tableHead.c], 1.2) && math.multiplyTwo(item[tableHead.e], 0.9) < item[tableHead.d]) {
         let result = math.multiplyTwo(
-            math.subtractTwo(math.multiplyTwo(item[tableHead.c], 0.8), item[tableHead.b]),
-            math.subtractTwo(item[tableHead.d], item[tableHead.e]))
-        let formula = '(实际用电量 * 0.8 - 日前申报量) * (日前电价 - 实时电价)'
+                math.subtractTwo(item[tableHead.b], math.multiplyTwo(item[tableHead.c], 1.2)),
+                math.subtractTwo(item[tableHead.d], math.multiplyTwo(item[tableHead.e], 0.9)))
+        let formula = '(中长期合约电量 - 1.2 * 实际用电量) * (日前月度电价 - 0.9 * 普通交易电价)'
         return {
             result,
             formula
