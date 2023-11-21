@@ -14,6 +14,8 @@
       <el-menu-item index="/utils">工具</el-menu-item>
       <el-menu-item index="/a">用户侧超额获利回收费用</el-menu-item>
       <el-menu-item index="/b">中长期曲线偏差回收费用</el-menu-item>
+      <el-menu-item index="/c">中长期缺额回收费用（分时）</el-menu-item>
+      <el-menu-item index="/d">中长期超额申报费用</el-menu-item>
       <!-- <el-sub-menu index="2">
         <template #title>Workspace</template>
         <el-menu-item index="2-1">item one</el-menu-item>

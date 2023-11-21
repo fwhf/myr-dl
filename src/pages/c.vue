@@ -15,9 +15,12 @@
             <el-table-column prop="c" :label="tableHead.c" />
             <el-table-column prop="d" :label="tableHead.d" />
             <el-table-column prop="e" :label="tableHead.e" />
-            <el-table-column prop="f" class-name="result" :label="tableHead.f" />
-            <el-table-column v-if="formulaShow" prop="g" :label="tableHead.g" width="400"/>
-            <el-table-column prop="h" class-name="result" :label="tableHead.h" />
+            <el-table-column prop="f" :label="tableHead.f" />
+            <el-table-column prop="g" :label="tableHead.g" />
+            <el-table-column prop="h" :label="tableHead.h" />
+            <el-table-column prop="i" class-name="result" :label="tableHead.f" />
+            <el-table-column v-if="formulaShow" prop="j" :label="tableHead.g" width="400"/>
+            <el-table-column prop="k" class-name="result" :label="tableHead.h" />
         </el-table>
     </div>
 </template>
@@ -33,13 +36,16 @@ const tableData = ref([])
 // 表头
 const tableHead = reactive({
     a: '时段',
-    b: '日前申报量',
-    c: '实际用电量',
-    d: '日前电价',
-    e: '实时电价',
-    f: '用户侧超额获利回收',
-    g: '计算公式',
-    h: '按小时求和'
+    b: '多月及以上净买入',
+    c: '新能源双边',
+    d: '月集中申报',
+    e: '旬集中申报',
+    f: '用电',
+    g: '中长期电价',
+    h: '日前月度电价',
+    i: '中长期缺额回收费用（分时）',
+    j: '计算公式',
+    k: '按小时求和'
 })
 // formulaShow
 const formulaShow = ref(true)
@@ -54,9 +60,9 @@ const objectSpanMethod = ({
     rowIndex,
     columnIndex,
 }) => {
-    let columnNum = 7
+    let columnNum = 10
     if(!formulaShow.value){
-        columnNum = 6
+        columnNum = 9
     }
     if (columnIndex === columnNum) {
         if (rowIndex % 4 === 0) {
@@ -105,7 +111,6 @@ const preview = () => {
     if (!data) {
         return
     }
-    console.log(data)
 
     let newData = []
     data.forEach(item => {
@@ -116,40 +121,34 @@ const preview = () => {
             c: item[tableHead.c],
             d: item[tableHead.d],
             e: item[tableHead.e],
-            f: result?.result,
-            g: result?.formula
+            f: item[tableHead.f],
+            g: item[tableHead.g],
+            h: item[tableHead.h],
+            i: result?.result,
+            j: result?.formula
         })
     })
     for (let i = 0; i < newData.length; i += 4) {
-        let count = math.addTwo(newData[i].f || 0, math.addTwo(newData[i + 1].f|| 0, math.addTwo(newData[i + 2].f || 0, newData[i + 3].f || 0)))
-        newData[i].h = count
-        newData[i + 1].h = count
-        newData[i + 2].h = count
-        newData[i + 3].h = count
+        let count = math.addTwo(newData[i].i || 0, math.addTwo(newData[i + 1].i|| 0, math.addTwo(newData[i + 2].i || 0, newData[i + 3].i || 0)))
+        newData[i].k = count
+        newData[i + 1].k = count
+        newData[i + 2].k = count
+        newData[i + 3].k = count
     }
     tableData.value = newData
 }
 
 const dowload = () => {
-    exportToExcel("用户侧超额获利回收");
+    exportToExcel("中长期缺额回收费用（分时）");
 }
 
 const computedResult = (item) => {
-    if (item[tableHead.b] > math.multiplyTwo(item[tableHead.c], 1.2) && item[tableHead.e] > item[tableHead.d]) {
+    let bcde = math.addTwo(item[tableHead.b], math.addTwo(item[tableHead.c], math.addTwo(item[tableHead.d], item[tableHead.e])))
+    if(bcde < math.multiplyTwo(item[tableHead.f], 0.9) && item[tableHead.g] > item[tableHead.h]){
         let result = math.multiplyTwo(
-            math.subtractTwo(item[tableHead.b], math.multiplyTwo(item[tableHead.c], 1.2)),
-            math.subtractTwo(item[tableHead.e], item[tableHead.d]))
-        let formula = '(日前申报量 - 实际用电量 * 1.2) * (实时电价 - 日前电价)'
-        return {
-            result,
-            formula
-        }
-    }
-    if (item[tableHead.b] < math.multiplyTwo(item[tableHead.c], 0.8) && item[tableHead.e] < item[tableHead.d]) {
-        let result = math.multiplyTwo(
-            math.subtractTwo(math.multiplyTwo(item[tableHead.c], 0.8), item[tableHead.b]),
-            math.subtractTwo(item[tableHead.d], item[tableHead.e]))
-        let formula = '(实际用电量 * 0.8 - 日前申报量) * (日前电价 - 实时电价)'
+                math.subtractTwo(math.multiplyTwo(item[tableHead.f], 0.9), bcde),
+                math.multiplyTwo(math.subtractTwo(item[tableHead.g], item[tableHead.h]), 1.5))
+        let formula = '(0.9 * 用电 - 多月及以上净买入 - 新能源双边 - 月集中申报 - 旬集中申报) * (中长期电价 - 日前月度电价) * 1.5'
         return {
             result,
             formula

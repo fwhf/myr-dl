@@ -4,18 +4,19 @@
         <div class="btn-group">
             <el-button type="primary" @click="preview">预览</el-button>
             <el-button type="primary" class="dowload" @click="dowload">下载</el-button>
+            <el-button type="primary" class="formula" @click="changeFormulaShow">{{formulaShow ? '隐藏' : '显示'}}公式列</el-button>
         </div>
     </div>
     <div class="table-card box-shadow border-radius">
         <el-table id="a-table" :span-method="objectSpanMethod" ref="tableDom" :data="tableData" style="width: 100%"
             max-height="600" :row-class-name="tableRowClassName">
-            <el-table-column fixed prop="a" :label="tableHead.a" />
+            <el-table-column fixed prop="a" :label="tableHead.a" width="110"/>
             <el-table-column prop="b" :label="tableHead.b" />
             <el-table-column prop="c" :label="tableHead.c" />
             <el-table-column prop="d" :label="tableHead.d" />
             <el-table-column prop="e" :label="tableHead.e" />
-            <el-table-column prop="f" class-name="result" :label="tableHead.f" />
-            <el-table-column prop="g" :label="tableHead.g" />
+            <el-table-column prop="f" class-name="result" :label="tableHead.f" width="200"/>
+            <el-table-column v-if="formulaShow" prop="g" :label="tableHead.g" width="500"/>
             <el-table-column prop="h" class-name="result" :label="tableHead.h" />
         </el-table>
     </div>
@@ -40,14 +41,24 @@ const tableHead = reactive({
     g: '计算公式',
     h: '按小时求和'
 })
+// formulaShow
+const formulaShow = ref(true)
+const changeFormulaShow = () => {
+    formulaShow.value = !formulaShow.value
+}
 
+// 表格样式所系
 const objectSpanMethod = ({
     row,
     column,
     rowIndex,
     columnIndex,
 }) => {
-    if (columnIndex === 7) {
+    let columnNum = 7
+    if(!formulaShow.value){
+        columnNum = 6
+    }
+    if (columnIndex === columnNum) {
         if (rowIndex % 4 === 0) {
             return {
                 rowspan: 4,
@@ -159,7 +170,7 @@ const computedResult = (item) => {
         justify-content: flex-end;
     }
 
-    .dowload {
+    .dowload, .formula {
         margin-left: 10px;
     }
 }
