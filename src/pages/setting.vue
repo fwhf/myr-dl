@@ -91,7 +91,7 @@ onUnmounted(() => {
   
 <style scoped lang="scss">
 .av-list {
-    padding: 10px;
+    padding: 20px;
     background-color: $bg-color;
 
     .el-avatar {
@@ -103,7 +103,7 @@ onUnmounted(() => {
 
 .bg-list {
     margin-top: 20px;
-    padding: 10px;
+    padding: 10px 20px 20px;
     background-color: $bg-color;
 
     .slider-block {
