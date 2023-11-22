@@ -5,10 +5,6 @@
                 <div class="text">表格转json：https://wejson.cn/excel2json/</div>
                 <div class="btn"><a href="https://wejson.cn/excel2json" target="_blank">点击跳转</a></div>
             </div>
-            <div class="row border-radius">
-                <div class="text">表格转json：https://wejson.cn/excel2json/</div>
-                <div class="btn"><a href="https://wejson.cn/excel2json" target="_blank">点击跳转</a></div>
-            </div>
         </div>
         <div class="calculator box-shadow border-radius">
             <div class="monitor">
@@ -131,7 +127,6 @@ const calculatorOperate = ref([
         },
     ],
 ])
-console.log(math.evaluate('0.1 + 0.2'))
 const clickCalculator = (text) => {
     let arr = calculatorInput.split('');
     switch(text){

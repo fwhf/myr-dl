@@ -19,12 +19,6 @@ a{
   display: flex;
   flex-direction: column;
   background-color: #efefef;
-
-  .page {
-    flex: 1;
-    overflow: hidden;
-    padding: 20px;
-  }
 }
 
 .box-shadow {

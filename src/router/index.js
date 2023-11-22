@@ -17,6 +17,11 @@ const routes = [
         component:()=>import('../pages/utils.vue'),
     },
     {
+        path: '/setting',
+        name: 'setting',
+        component:()=>import('../pages/setting.vue'),
+    },
+    {
         path: '/a',
         name: 'a',
         component:()=>import('../pages/a.vue'),

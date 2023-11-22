@@ -16,6 +16,7 @@
     "node-polyfill-webpack-plugin": "^2.0.1",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5",
+    "vuex": "^4.1.0",
     "xlsx": "^0.18.5",
     "xlsx-style-medalsoft": "^0.8.13",
     "xlsx-style-vite": "^0.0.2"
