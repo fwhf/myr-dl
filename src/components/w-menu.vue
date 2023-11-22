@@ -44,6 +44,7 @@ watch(
   
 <style scoped lang="scss">
 .el-menu-myr{
+  padding: 0 20px;
   .el-avatar {
     border: 1px solid $border-color;
   }
