@@ -31,6 +31,7 @@ onBeforeMount(() => {
 onMounted(() => {
     bgOpcity.value = store.state.setting.bgOpcity / 100
     bgUrl.value = new URL(store.state.setting.bg, import.meta.url).href
+    
     window.addEventListener('resize', resize)
 })
 onUnmounted(() => {

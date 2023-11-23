@@ -1,8 +1,8 @@
 import Local from '@/utils/local.js'
 const state = {
-    av: Local.get('av').url || '../assets/av/av1.jpeg',
-    bg: Local.get('bg').url || '../assets/bg/bg1.jpeg',
-    bgOpcity: Local.get('bgOpcity').opcity || 100,
+    av: Local.get('av')?.url || '/src/assets/av/av1.jpeg',
+    bg: Local.get('bg')?.url || '/src/assets/bg/bg1.jpeg',
+    bgOpcity: Local.get('bgOpcity')?.opcity || 70,
 }
 
 const mutations = {
