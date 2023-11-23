@@ -1,7 +1,8 @@
 import Local from '@/utils/local.js'
+
 const state = {
-    av: Local.get('av')?.url || '/src/assets/av/av1.jpeg',
-    bg: Local.get('bg')?.url || '/src/assets/bg/bg1.jpeg',
+    av: Local.get('av')?.url || (import.meta.env.MODE === "development" ? '/myr/src/assets/av/av1.jpeg' : '/myr/assets/av1.jpeg'),
+    bg: Local.get('bg')?.url || (import.meta.env.MODE === "development" ? '/myr/src/assets/bg/bg1.jpeg' : '/myr/assets/bg1.jpeg'),
     bgOpcity: Local.get('bgOpcity')?.opcity || 70,
 }
 
