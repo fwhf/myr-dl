@@ -3,7 +3,7 @@
     @select="handleSelect">
     <el-sub-menu index="/">
       <template #title><el-avatar :size="40" :src="avUrl" fit="cover" /></template>
-      <el-menu-item index="/">天气</el-menu-item>
+      <el-menu-item index="/">首页</el-menu-item>
       <el-menu-item index="/setting">设置</el-menu-item>
     </el-sub-menu>
     <div class="flex-grow" />
