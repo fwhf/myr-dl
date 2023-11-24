@@ -1,9 +1,9 @@
 <template>
   <el-menu :default-active="activeIndex" class="el-menu-myr box-shadow" mode="horizontal" :ellipsis="false"
     @select="handleSelect">
-    <el-sub-menu index="/">
+    <el-sub-menu index="1">
       <template #title><el-avatar :size="40" :src="avUrl" fit="cover" /></template>
-      <el-menu-item index="/">天气</el-menu-item>
+      <el-menu-item index="/">首页</el-menu-item>
       <el-menu-item index="/setting">设置</el-menu-item>
     </el-sub-menu>
     <div class="flex-grow" />
