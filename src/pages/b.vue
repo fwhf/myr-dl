@@ -89,9 +89,10 @@ const dataCheck = () => {
         ElMessage.error('请输入数据')
         return
     }
-    let value = null
+    let value = JSON.parse(textarea.value)
+    let keys = Object.keys(value)
     try {
-        value = JSON.parse(textarea.value)?.Sheet1
+        value = value?.[keys[0]]
     } catch (error) {
         ElMessage.error('数据格式有误')
     }

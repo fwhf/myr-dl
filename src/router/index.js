@@ -40,6 +40,11 @@ const routes = [
         path: '/d',
         name: 'd',
         component:()=>import('../pages/d.vue'),
+    },
+    {
+        path: '/chart',
+        name: 'chart',
+        component:()=>import('../pages/chart.vue')
     }
 ]
 
