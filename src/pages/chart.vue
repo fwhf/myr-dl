@@ -353,6 +353,14 @@
                                 </div>
                             </div>
                             <div class="detail-row">
+                                <el-switch class="segmentation" v-model="line.itemStyle.show" active-text="标记点使用固定色"
+                                    inactive-text="标记点使用随机色" />
+                                <div class="segmentation font-block">
+                                    <span class="demonstration">标记点颜色</span>
+                                    <el-color-picker v-model="line.itemStyle.color" />
+                                </div>
+                            </div>
+                            <div class="detail-row">
                                 <div class="segmentation top-block">
                                     <span
                                         class="demonstration">点标记样式(emptyCircle/circle/rect/roundRect/triangle/diamond/pin/arrow/none)</span>
@@ -556,6 +564,10 @@ let line = {
     symbolSize: 4,
     showSymbol: false,
     colorBy: '#66ff00',
+    itemStyle: {
+        show: false,
+        color: '#66ff00'
+    },
     lineStyle: {
         width: 1
     },
@@ -677,11 +689,20 @@ const previewLine = () => {
             } else {
                 delete line.areaStyle
             }
+            if(!line.itemStyle.show){
+                delete line.itemStyle
+            }
+            line.lineStyle.color = line.colorBy
             seriesData.push({
                 ...line,
                 name: line.key,
             })
-            legendData.push(line.key)
+            legendData.push({
+                name:line.key,
+                itemStyle: {
+                    color: line.colorBy
+                }
+            })
         }
     })
     lineData.forEach(item => {
