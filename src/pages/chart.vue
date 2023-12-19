@@ -12,7 +12,7 @@
                     <div class="row background">
                         <div class="main">
                             <div class="label">背景:</div>
-                            <el-color-picker v-model="lineSetting.backgroundColor" />
+                            <el-color-picker show-alpha v-model="lineSetting.backgroundColor" />
                         </div>
                     </div>
                     <div class="row title">
@@ -26,7 +26,7 @@
                                     inactive-text="隐藏" />
                                 <div class="segmentation color-block">
                                     <span class="demonstration">字体颜色</span>
-                                    <el-color-picker v-model="lineSetting.title.textStyle.color" />
+                                    <el-color-picker show-alpha v-model="lineSetting.title.textStyle.color" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">字体大小</span>
@@ -55,7 +55,7 @@
                                     inactive-text="隐藏" />
                                 <div class="segmentation color-block">
                                     <span class="demonstration">字体颜色</span>
-                                    <el-color-picker v-model="lineSetting.legend.textStyle.color" />
+                                    <el-color-picker show-alpha v-model="lineSetting.legend.textStyle.color" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">字体大小</span>
@@ -102,7 +102,7 @@
                                 </div>
                                 <div class="segmentation color-block">
                                     <span class="demonstration">名称字体颜色</span>
-                                    <el-color-picker v-model="lineSetting.xAxis.nameTextStyle.color" />
+                                    <el-color-picker show-alpha v-model="lineSetting.xAxis.nameTextStyle.color" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">名称字体大小</span>
@@ -114,7 +114,7 @@
                                     inactive-text="隐藏轴线" />
                                 <div class="segmentation color-block">
                                     <span class="demonstration">轴线颜色</span>
-                                    <el-color-picker v-model="lineSetting.xAxis.axisLine.lineStyle.color" />
+                                    <el-color-picker show-alpha v-model="lineSetting.xAxis.axisLine.lineStyle.color" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">轴线宽度</span>
@@ -126,7 +126,7 @@
                                     inactive-text="隐藏刻度" />
                                 <div class="segmentation color-block">
                                     <span class="demonstration">刻度颜色</span>
-                                    <el-color-picker v-model="lineSetting.xAxis.axisTick.lineStyle.color" />
+                                    <el-color-picker show-alpha v-model="lineSetting.xAxis.axisTick.lineStyle.color" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">刻度宽度</span>
@@ -138,7 +138,7 @@
                                     active-text="展示刻度标签" inactive-text="隐藏刻度标签" />
                                 <div class="segmentation color-block">
                                     <span class="demonstration">刻度标签颜色</span>
-                                    <el-color-picker v-model="lineSetting.xAxis.axisLabel.color" />
+                                    <el-color-picker show-alpha v-model="lineSetting.xAxis.axisLabel.color" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">刻度标签大小</span>
@@ -150,8 +150,8 @@
                                     active-text="展示区域分割线" inactive-text="隐藏区域分割线" />
                                 <div class="segmentation color-block">
                                     <span class="demonstration">区域分割线颜色</span>
-                                    <el-color-picker v-model="lineSetting.xAxis.splitLine.lineStyle.color[0]" />
-                                    <el-color-picker v-model="lineSetting.xAxis.splitLine.lineStyle.color[1]" />
+                                    <el-color-picker show-alpha v-model="lineSetting.xAxis.splitLine.lineStyle.color[0]" />
+                                    <el-color-picker show-alpha v-model="lineSetting.xAxis.splitLine.lineStyle.color[1]" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">区域分割线宽度</span>
@@ -185,7 +185,7 @@
                                 </div>
                                 <div class="segmentation color-block">
                                     <span class="demonstration">名称字体颜色</span>
-                                    <el-color-picker v-model="lineSetting.yAxis[0].nameTextStyle.color" />
+                                    <el-color-picker show-alpha v-model="lineSetting.yAxis[0].nameTextStyle.color" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">名称字体大小</span>
@@ -197,7 +197,7 @@
                                     active-text="展示轴线" inactive-text="隐藏轴线" />
                                 <div class="segmentation color-block">
                                     <span class="demonstration">轴线颜色</span>
-                                    <el-color-picker v-model="lineSetting.yAxis[0].axisLine.lineStyle.color" />
+                                    <el-color-picker show-alpha v-model="lineSetting.yAxis[0].axisLine.lineStyle.color" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">轴线宽度</span>
@@ -209,7 +209,7 @@
                                     active-text="展示刻度" inactive-text="隐藏刻度" />
                                 <div class="segmentation color-block">
                                     <span class="demonstration">刻度颜色</span>
-                                    <el-color-picker v-model="lineSetting.yAxis[0].axisTick.lineStyle.color" />
+                                    <el-color-picker show-alpha v-model="lineSetting.yAxis[0].axisTick.lineStyle.color" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">刻度宽度</span>
@@ -221,7 +221,7 @@
                                     active-text="展示刻度标签" inactive-text="隐藏刻度标签" />
                                 <div class="segmentation color-block">
                                     <span class="demonstration">刻度标签颜色</span>
-                                    <el-color-picker v-model="lineSetting.yAxis[0].axisLabel.color" />
+                                    <el-color-picker show-alpha v-model="lineSetting.yAxis[0].axisLabel.color" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">刻度标签大小</span>
@@ -233,8 +233,8 @@
                                     active-text="展示区域分割线" inactive-text="隐藏区域分割线" />
                                 <div class="segmentation color-block">
                                     <span class="demonstration">区域分割线颜色</span>
-                                    <el-color-picker v-model="lineSetting.yAxis[0].splitLine.lineStyle.color[0]" />
-                                    <el-color-picker v-model="lineSetting.yAxis[0].splitLine.lineStyle.color[1]" />
+                                    <el-color-picker show-alpha v-model="lineSetting.yAxis[0].splitLine.lineStyle.color[0]" />
+                                    <el-color-picker show-alpha v-model="lineSetting.yAxis[0].splitLine.lineStyle.color[1]" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">区域分割线宽度</span>
@@ -268,7 +268,7 @@
                                 </div>
                                 <div class="segmentation color-block">
                                     <span class="demonstration">名称字体颜色</span>
-                                    <el-color-picker v-model="lineSetting.yAxis[1].nameTextStyle.color" />
+                                    <el-color-picker show-alpha v-model="lineSetting.yAxis[1].nameTextStyle.color" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">名称字体大小</span>
@@ -280,7 +280,7 @@
                                     active-text="展示轴线" inactive-text="隐藏轴线" />
                                 <div class="segmentation color-block">
                                     <span class="demonstration">轴线颜色</span>
-                                    <el-color-picker v-model="lineSetting.yAxis[1].axisLine.lineStyle.color" />
+                                    <el-color-picker show-alpha v-model="lineSetting.yAxis[1].axisLine.lineStyle.color" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">轴线宽度</span>
@@ -292,7 +292,7 @@
                                     active-text="展示刻度" inactive-text="隐藏刻度" />
                                 <div class="segmentation color-block">
                                     <span class="demonstration">刻度颜色</span>
-                                    <el-color-picker v-model="lineSetting.yAxis[1].axisTick.lineStyle.color" />
+                                    <el-color-picker show-alpha v-model="lineSetting.yAxis[1].axisTick.lineStyle.color" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">刻度宽度</span>
@@ -304,7 +304,7 @@
                                     active-text="展示刻度标签" inactive-text="隐藏刻度标签" />
                                 <div class="segmentation color-block">
                                     <span class="demonstration">刻度标签颜色</span>
-                                    <el-color-picker v-model="lineSetting.yAxis[1].axisLabel.color" />
+                                    <el-color-picker show-alpha v-model="lineSetting.yAxis[1].axisLabel.color" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">刻度标签大小</span>
@@ -316,8 +316,8 @@
                                     active-text="展示区域分割线" inactive-text="隐藏区域分割线" />
                                 <div class="segmentation color-block">
                                     <span class="demonstration">区域分割线颜色</span>
-                                    <el-color-picker v-model="lineSetting.yAxis[1].splitLine.lineStyle.color[0]" />
-                                    <el-color-picker v-model="lineSetting.yAxis[1].splitLine.lineStyle.color[1]" />
+                                    <el-color-picker show-alpha v-model="lineSetting.yAxis[1].splitLine.lineStyle.color[0]" />
+                                    <el-color-picker show-alpha v-model="lineSetting.yAxis[1].splitLine.lineStyle.color[1]" />
                                 </div>
                                 <div class="segmentation font-block">
                                     <span class="demonstration">区域分割线宽度</span>
@@ -357,7 +357,7 @@
                                     inactive-text="标记点使用随机色" />
                                 <div class="segmentation font-block">
                                     <span class="demonstration">标记点颜色</span>
-                                    <el-color-picker v-model="line.itemStyle.color" />
+                                    <el-color-picker show-alpha v-model="line.itemStyle.color" />
                                 </div>
                             </div>
                             <div class="detail-row">
@@ -370,7 +370,7 @@
                             <div class="detail-row">
                                 <div class="segmentation color-block">
                                     <span class="demonstration">线颜色</span>
-                                    <el-color-picker v-model="line.colorBy" />
+                                    <el-color-picker show-alpha v-model="line.colorBy" />
                                 </div>
                                 <div class="segmentation color-block">
                                     <span class="demonstration">线宽度</span>
@@ -382,11 +382,11 @@
                                     inactive-text="隐藏区域填充" />
                                 <div class="segmentation color-block">
                                     <span class="demonstration">区域填充颜色顶部</span>
-                                    <el-color-picker v-model="line.areaStyle.color0" />
+                                    <el-color-picker show-alpha v-model="line.areaStyle.color0" />
                                 </div>
                                 <div class="segmentation color-block">
                                     <span class="demonstration">区域填充颜色底部</span>
-                                    <el-color-picker v-model="line.areaStyle.color1" />
+                                    <el-color-picker show-alpha v-model="line.areaStyle.color1" />
                                 </div>
                             </div>
                         </div>
