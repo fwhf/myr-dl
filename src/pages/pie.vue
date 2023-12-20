@@ -76,7 +76,7 @@
                     </div>
                     <div class="row pies" v-for="(pie, index) in pieSetting.pies">
                         <div class="main">
-                            <div class="label">柱{{ index + 1 }}:</div>
+                            <div class="label">饼{{ index + 1 }}:</div>
                             <el-select v-model="pie.key" class="m-2" placeholder="Select">
                                 <el-option v-for="item in pieSelect" :key="item.value" :label="item.label"
                                     :value="item.value" />
@@ -84,87 +84,63 @@
                         </div>
                         <div class="detail">
                             <div class="detail-row">
-                                <el-button type="danger" @click="delPie(index)">删除</el-button>
+                                <el-button type="danger" @click="delPie(index)">删除饼</el-button>
                                 <div class="segmentation color-block">
-                                    <span class="demonstration">使用第几个x轴(0,1)</span>
-                                    <el-input-number v-model="pie.xAxisIndex" :min="0" :max="1" />
+                                    <span class="demonstration">起始角度</span>
+                                    <el-input-number v-model="pie.startAngle" :min="0" :max="360" />
                                 </div>
                                 <div class="segmentation color-block">
-                                    <span class="demonstration">使用第几个y轴(0,1)</span>
-                                    <el-input-number v-model="pie.yAxisIndex" :min="0" :max="1" />
-                                </div>
-                            </div>
-                            <div class="detail-row">
-                                <el-switch class="segmentation" v-model="pie.showBackground" active-text="展示背景色"
-                                    inactive-text="关闭背景色" />
-                                <div class="segmentation font-block">
-                                    <span class="demonstration">背景色颜色</span>
-                                    <el-color-picker show-alpha v-model="pie.backgroundStyle.color" />
+                                    <span class="demonstration">扇形类型(radius/area)</span>
+                                    <el-input v-model="pie.roseType" class="m-2" />
                                 </div>
                             </div>
                             <div class="detail-row">
                                 <div class="segmentation color-block">
-                                    <span class="demonstration">背景圆角</span>
-                                    <el-input-number v-model="pie.backgroundStyle.borderRadius[0]" :min="0" />
-                                    <el-input-number v-model="pie.backgroundStyle.borderRadius[1]" :min="0" />
-                                    <el-input-number v-model="pie.backgroundStyle.borderRadius[2]" :min="0" />
-                                    <el-input-number v-model="pie.backgroundStyle.borderRadius[3]" :min="0" />
-                                </div>
-                            </div>
-                            <div class="detail-row">
-                                <el-switch class="segmentation" v-model="pie.label.show" active-text="展示柱label"
-                                    inactive-text="关闭柱label" />
-                                <div class="segmentation font-block">
-                                    <span class="demonstration">柱label颜色</span>
-                                    <el-color-picker show-alpha v-model="pie.label.color" />
+                                    <span class="demonstration">饼图中心(20/20%)</span>
+                                    <el-input v-model="pie.center[0]" class="m-2" />
+                                    <el-input v-model="pie.center[1]" class="m-2" />
                                 </div>
                                 <div class="segmentation color-block">
-                                    <span class="demonstration">柱label大小</span>
-                                    <el-input-number v-model="pie.label.fontSize" :min="0" />
+                                    <span class="demonstration">饼图半径(20/20%)</span>
+                                    <el-input v-model="pie.radius[0]" class="m-2" />
+                                    <el-input v-model="pie.radius[1]" class="m-2" />
                                 </div>
                             </div>
-                            <div class="detail-row">
-                                <div class="segmentation position-block">
-                                    <span class="demonstration">柱label位置(top/left/right/bottom/inside/insideLeft/insideRight/insideTop/insideBottom/insideTopLeft/insideBottomLeft/insideTopRight/insideBottomRight)</span>
-                                    <el-input v-model="pie.label.position" class="m-2" />
+                            <div class="detail-row pies-data" v-for="(pieData, pieDataIndex) in pie.data">
+                                <div class="main">
+                                    <div class="label">扇{{ (index + 1) + '-' + (pieDataIndex + 1) }}:</div>
+                                    <el-select v-model="pieData.key" class="m-2" placeholder="Select">
+                                        <el-option v-for="item in pieSelect" :key="item.value" :label="item.label"
+                                            :value="item.value" />
+                                    </el-select>
+                                </div>
+                                <div class="detail-row">
+                                    <el-button type="danger" @click="delPieData(index, pieDataIndex)">删除扇</el-button>
+                                    <el-switch class="segmentation" v-model="pieData.label.show" active-text="展示扇label"
+                                        inactive-text="关闭扇label" />
+                                    <div class="segmentation font-block">
+                                        <span class="demonstration">扇label颜色</span>
+                                        <el-color-picker show-alpha v-model="pieData.label.color" />
+                                    </div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="segmentation position-block">
+                                        <span class="demonstration">扇label位置(outside/inside/center)</span>
+                                        <el-input v-model="pieData.label.position" class="m-2" />
+                                    </div>
+                                    <div class="segmentation font-block">
+                                        <span class="demonstration">扇颜色</span>
+                                        <el-color-picker show-alpha v-model="pieData.itemStyle.color" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="detail-row">
-                                <el-switch class="segmentation" v-model="pie.itemStyle.colorsType" active-text="使用渐变色"
-                                    inactive-text="使用单色" />
-                                <div class="segmentation font-block">
-                                    <span class="demonstration">柱条颜色</span>
-                                    <el-color-picker show-alpha v-model="pie.itemStyle.color" />
-                                </div>
-                                <div class="segmentation font-block">
-                                    <span class="demonstration">柱条渐变颜色</span>
-                                    <el-color-picker show-alpha v-model="pie.itemStyle.colors[0]" />
-                                    <el-color-picker show-alpha v-model="pie.itemStyle.colors[1]" />
-                                </div>
-                            </div>
-                            <div class="detail-row">
-                                <div class="segmentation font-block">
-                                    <span class="demonstration">柱条圆角</span>
-                                    <el-input-number v-model="pie.itemStyle.borderRadius[0]" :min="0" />
-                                    <el-input-number v-model="pie.itemStyle.borderRadius[1]" :min="0" />
-                                    <el-input-number v-model="pie.itemStyle.borderRadius[2]" :min="0" />
-                                    <el-input-number v-model="pie.itemStyle.borderRadius[3]" :min="0" />
-                                </div>
-                            </div>
-                            <div class="detail-row">
-                                <div class="segmentation font-block">
-                                    <span class="demonstration">数据堆叠</span>
-                                    <el-input v-model="pie.stack" class="m-2" />
-                                </div>
-                                <div class="segmentation font-block">
-                                    <span class="demonstration">最大柱条宽(20/20%)</span>
-                                    <el-input v-model="pie.barMaxWidth" class="m-2" />
-                                </div>
+                            <div class="bottom-btn">
+                                <el-button type="primary" @click="addPieData(index)">新增扇</el-button>
                             </div>
                         </div>
                     </div>
                     <div class="bottom-btn">
-                        <el-button type="primary" @click="addPie()">新增柱</el-button>
+                        <el-button type="primary" @click="addPie()">新增饼</el-button>
                     </div>
                 </div>
             </el-scrollbar>
@@ -208,31 +184,23 @@ const pieSetting = reactive({
     pies: []
 })
 let pie = {
-    key: '',
-    name: '',
     type: 'pie',
-    xAxisIndex: 0,
-    yAxisIndex: 0,
-    showBackground: false,
-    backgroundStyle: {
-        color: 'rgba(180, 180, 180, 0.2)',
-        borderRadius: [0, 0, 0, 0]
-    },
-    label: {
-        show: false,
-        color: '#333',
-        fontSize: 12,
-        position: 'insideTop'
-    },
-    itemStyle: {
-        colorsType: false,
-        color: '#ffff00',
-        colors: ['#ffff00', '#66ff00'],
-        borderRadius: [0, 0, 0, 0]
-    },
-    stack: '',
-    barMaxWidth: '30',
-    data: []
+    startAngle: 90,
+    roseType: 'radius',
+    center: ['50%', '50%'],
+    radius: [0, '75%'],
+    data: [{
+        key: '',
+        label: {
+            show: false,
+            color: '#333',
+            fontSize: 12,
+            position: 'insideTop'
+        },
+        itemStyle: {
+            color: '#ffff00',
+        }
+    }]
 }
 pieSetting.pies.push(JSON.parse(JSON.stringify(pie)))
 let pieChart = null
@@ -261,15 +229,25 @@ const initSettingBar = () => {
 const addPie = () => {
     pieSetting.pies.push(JSON.parse(JSON.stringify(pie)))
 }
+const addPieData = (index) => {
+    pieSetting.pies[index].data.push(JSON.parse(JSON.stringify(pie.data[0])))
+}
 const delPie = (index) => {
     if (pieSetting.pies.length === 1) {
-        ElMessage.error('最少保留一个扇形')
+        ElMessage.error('最少保留一个饼图')
         return
     }
     pieSetting.pies.splice(index, 1)
 }
+const delPieData = (index, pieDataIndex) => {
+    if (pieSetting.pies[index].data.length === 1) {
+        ElMessage.error('最少保留一个扇形')
+        return
+    }
+    pieSetting.pies[index].data.splice(pieDataIndex, 1)
+}
 const previewBar = () => {
-    const barOption = {
+    const pieOption = {
         grid: {
             containLabel: true,
             top: 60,
@@ -323,53 +301,38 @@ const previewBar = () => {
         },
     };
 
-    let axisData = []
     let seriesData = []
     let legendData = []
 
-    let linearGradient = [0,0,0,1]
+    if(pieSetting.pies.length > 1){
+        pieSetting.legend.show = false
+    }
+    pieSetting.pies.forEach(pie => {
+        let newPie = JSON.parse(JSON.stringify(pie))
+        newPie.data.forEach(item => {
+            item.name = item.key
+            legendData.push(item.key)
 
-    pieSetting.pies.forEach(item => {
-        if (item.key) {
-            let pie = JSON.parse(JSON.stringify(item))
-            if (pie.itemStyle.colorsType) {
-                pie.itemStyle.color = new echarts.graphic.LinearGradient(linearGradient[0], linearGradient[1], linearGradient[2], linearGradient[3], [
-                    {
-                        offset: 0,
-                        color: pie.itemStyle.colors[0]
-                    },
-                    {
-                        offset: 1,
-                        color: pie.itemStyle.colors[1]
-                    }
-                ])
-            }
-            delete pie.itemStyle.colors
-            delete pie.itemStyle.colorsType
-            seriesData.push({
-                ...pie,
-                name: pie.key,
+            let value = 0
+            pieData.forEach(pieDataItem => {
+                value += pieDataItem.key
             })
-            legendData.push({
-                name:pie.key
-            })
-        }
-    })
-    pieData.forEach(item => {
-        axisData.push(item[axisKey])
-        seriesData.forEach(seriesItem => {
-            seriesItem.data.push(item[seriesItem.name])
+            item.value = value
+        })
+        seriesData.push({
+            ...pie,
         })
     })
+    
 
-    barOption.backgroundColor = pieSetting.backgroundColor
-    barOption.title = JSON.parse(JSON.stringify(pieSetting.title))
-    barOption.legend = JSON.parse(JSON.stringify(pieSetting.legend))
-    barOption.legend.data = legendData
+    pieOption.backgroundColor = pieSetting.backgroundColor
+    pieOption.title = JSON.parse(JSON.stringify(pieSetting.title))
+    pieOption.legend = JSON.parse(JSON.stringify(pieSetting.legend))
+    pieOption.legend.data = legendData
 
-    barOption.series = seriesData
+    pieOption.series = seriesData
 
-    pieChart.setOption(barOption);
+    pieChart.setOption(pieOption);
 }
 </script>
 
@@ -463,6 +426,16 @@ const previewBar = () => {
 
                             .el-input {
                                 max-width: 100px;
+                            }
+                        }
+
+                        &.pies-data{
+                            display: block;
+                            padding-top: 10px;
+                            margin-top: 10px;
+                            border-top: 1px solid $border-color;
+                            .detail-row {
+                                padding-left: 100px;
                             }
                         }
                     }
