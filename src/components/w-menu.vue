@@ -13,7 +13,13 @@
     <el-menu-item index="/b">中长期曲线偏差回收费用</el-menu-item>
     <el-menu-item index="/c">中长期缺额回收费用（分时）</el-menu-item>
     <el-menu-item index="/d">中长期超额申报费用</el-menu-item>
-    <el-menu-item index="/chart">图表制作</el-menu-item>
+    <el-sub-menu index="2">
+      <template #title>图表制作</template>
+      <el-menu-item index="/line">折线图</el-menu-item>
+      <el-menu-item index="/bar">柱状图</el-menu-item>
+      <el-menu-item index="/line-bar">折线-柱状图</el-menu-item>
+      <el-menu-item index="/pie">饼图</el-menu-item>
+    </el-sub-menu>
   </el-menu>
 </template>
   

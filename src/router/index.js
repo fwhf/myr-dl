@@ -42,9 +42,24 @@ const routes = [
         component:()=>import('../pages/d.vue'),
     },
     {
-        path: '/chart',
-        name: 'chart',
-        component:()=>import('../pages/chart.vue')
+        path: '/line',
+        name: 'line',
+        component:()=>import('../pages/line.vue')
+    },
+    {
+        path: '/bar',
+        name: 'bar',
+        component:()=>import('../pages/bar.vue')
+    },
+    {
+        path: '/line-bar',
+        name: 'line-bar',
+        component:()=>import('../pages/line-bar.vue')
+    },
+    {
+        path: '/pie',
+        name: 'pie',
+        component:()=>import('../pages/pie.vue')
     }
 ]
 

@@ -77,10 +77,11 @@
                     <div class="row xAxis">
                         <div class="main">
                             <div class="label">X轴:</div>
-                            <el-select v-model="lineSetting.xAxis.key" class="m-2">
+                            <el-select v-model="lineSetting.xAxis.key" clearable class="m-2">
                                 <el-option v-for="item in lineSelect" :key="item.value" :label="item.label"
                                     :value="item.value" />
                             </el-select>
+                            <el-input v-model="lineSetting.xAxis.axisLabelUnit" :disabled="Boolean(lineSetting.xAxis.key)" class="m-2" />
                         </div>
                         <div class="detail">
                             <div class="detail-row">
@@ -163,14 +164,18 @@
                     <div class="row yAxis">
                         <div class="main">
                             <div class="label">Y轴1:</div>
-                            <el-input v-model="lineSetting.yAxis[0].axisLabelUnit" class="m-2" />
+                            <el-select v-model="lineSetting.yAxis[0].key" clearable class="m-2">
+                                <el-option v-for="item in lineSelect" :key="item.value" :label="item.label"
+                                    :value="item.value" />
+                            </el-select>
+                            <el-input v-model="lineSetting.yAxis[0].axisLabelUnit" :disabled="Boolean(lineSetting.yAxis[0].key)" class="m-2" />
                         </div>
                         <div class="detail">
                             <div class="detail-row">
                                 <el-switch class="segmentation" v-model="lineSetting.yAxis[0].show" active-text="展示"
                                     inactive-text="隐藏" />
                                 <div class="segmentation position-block">
-                                    <span class="demonstration">轴位置(top/bottom)</span>
+                                    <span class="demonstration">轴位置(left/right)</span>
                                     <el-input v-model="lineSetting.yAxis[0].position" class="m-2" />
                                 </div>
                                 <div class="segmentation name-block">
@@ -246,14 +251,18 @@
                     <div class="row yAxis">
                         <div class="main">
                             <div class="label">Y轴2:</div>
-                            <el-input v-model="lineSetting.yAxis[1].axisLabelUnit" class="m-2" />
+                            <el-select v-model="lineSetting.yAxis[1].key" clearable class="m-2">
+                                <el-option v-for="item in lineSelect" :key="item.value" :label="item.label"
+                                    :value="item.value" />
+                            </el-select>
+                            <el-input v-model="lineSetting.yAxis[1].axisLabelUnit" :disabled="Boolean(lineSetting.yAxis[1].key)" class="m-2" />
                         </div>
                         <div class="detail">
                             <div class="detail-row">
                                 <el-switch class="segmentation" v-model="lineSetting.yAxis[1].show" active-text="展示"
                                     inactive-text="隐藏" />
                                 <div class="segmentation position-block">
-                                    <span class="demonstration">轴位置(top/bottom)</span>
+                                    <span class="demonstration">轴位置(left/right)</span>
                                     <el-input v-model="lineSetting.yAxis[1].position" class="m-2" />
                                 </div>
                                 <div class="segmentation name-block">
@@ -436,9 +445,10 @@ const lineSetting = reactive({
     xAxis: {
         key: '',
         type: 'category',
+        axisLabelUnit: '',
         show: true,
         data: [],
-        position: 'left',
+        position: 'bottom',
         name: '',
         nameLocation: 'end',
         nameTextStyle: {
@@ -667,25 +677,63 @@ const previewLine = () => {
         },
     };
 
-    let xAxisData = []
+    let axisData = []
     let seriesData = []
     let legendData = []
+    let axisKey = ''
+    let linearGradient = [0,0,0,1]
+    if(lineSetting.xAxis.key){
+        axisKey = lineSetting.xAxis.key
+
+        lineSetting.xAxis.type = 'category'
+        delete lineSetting.xAxis.axisLabel.formatter
+
+        lineSetting.yAxis.forEach(item => {
+            item.type = 'value'
+            if (item.axisLabelUnit) {
+                item.axisLabel.formatter = '{value} ' + item.axisLabelUnit
+            }else{
+                delete item.axisLabel.formatter
+            }
+        })
+    }else{
+        linearGradient = [0,0,1,0]
+        for(let i = 0 ; i < lineSetting.yAxis.length; i++){
+            if(lineSetting.yAxis[i].key && lineSetting.yAxis[i].show){
+                axisKey = lineSetting.yAxis[i].key
+                break
+            }
+        }
+        lineSetting.yAxis.forEach(item => {
+            item.type = 'category'
+            delete item.axisLabel.formatter
+        })
+
+        lineSetting.xAxis.type = 'value'
+        if (lineSetting.xAxis.axisLabelUnit) {
+            lineSetting.xAxis.axisLabel.formatter = '{value} ' + lineSetting.xAxis.axisLabelUnit
+        }else{
+            delete lineSetting.xAxis.axisLabel.formatter
+        }
+    }
+    if(!axisKey){
+        ElMessage.error('必选选择一个轴label')
+        return
+    }
     lineSetting.lines.forEach(item => {
         if (item.key) {
             let line = JSON.parse(JSON.stringify(item))
             if (line.areaStyle.show) {
-                line.areaStyle = {
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                        {
-                            offset: 0,
-                            color: line.areaStyle.color0
-                        },
-                        {
-                            offset: 1,
-                            color: line.areaStyle.color1
-                        }
-                    ])
-                }
+                line.areaStyle.color = new echarts.graphic.LinearGradient(linearGradient[0], linearGradient[1], linearGradient[2], linearGradient[3], [
+                    {
+                        offset: 0,
+                        color: line.areaStyle.color0
+                    },
+                    {
+                        offset: 1,
+                        color: line.areaStyle.color1
+                    }
+                ])
             } else {
                 delete line.areaStyle
             }
@@ -706,7 +754,7 @@ const previewLine = () => {
         }
     })
     lineData.forEach(item => {
-        xAxisData.push(item[lineSetting.xAxis.key])
+        axisData.push(item[axisKey])
         seriesData.forEach(seriesItem => {
             seriesItem.data.push(item[seriesItem.name])
         })
@@ -717,11 +765,13 @@ const previewLine = () => {
     lineOption.legend = JSON.parse(JSON.stringify(lineSetting.legend))
     lineOption.legend.data = legendData
     lineOption.xAxis = JSON.parse(JSON.stringify(lineSetting.xAxis))
-    lineOption.xAxis.data = xAxisData
+    if(lineOption.xAxis.key === axisKey){
+        lineOption.xAxis.data = axisData
+    }
     lineOption.yAxis = JSON.parse(JSON.stringify(lineSetting.yAxis))
     lineOption.yAxis.forEach(item => {
-        if (item.axisLabelUnit) {
-            item.axisLabel.formatter = '{value} ' + item.axisLabelUnit
+        if(item.key === axisKey){
+            item.data = axisData
         }
     })
     lineOption.series = seriesData
@@ -784,6 +834,13 @@ const previewLine = () => {
                         padding-right: 10px;
                         font-size: 14px;
                         color: $color;
+                    }
+                    .el-select{
+                        width: 200px;
+                        margin-right: 10px;
+                    }
+                    .el-input{
+                        width: 200px;
                     }
                 }
 
