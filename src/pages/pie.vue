@@ -77,10 +77,6 @@
                     <div class="row pies" v-for="(pie, index) in pieSetting.pies">
                         <div class="main">
                             <div class="label">饼{{ index + 1 }}:</div>
-                            <el-select v-model="pie.key" class="m-2" placeholder="Select">
-                                <el-option v-for="item in pieSelect" :key="item.value" :label="item.label"
-                                    :value="item.value" />
-                            </el-select>
                         </div>
                         <div class="detail">
                             <div class="detail-row">
@@ -261,12 +257,6 @@ const previewBar = () => {
         toolbox: {
             left: 10,
             feature: {
-                dataZoom: {
-                    yAxisIndex: 'none'
-                },
-                magicType: {
-                    type: ['line', 'bar']
-                },
                 restore: {},
                 saveAsImage: {},
                 myFull: { // 全屏
@@ -315,14 +305,16 @@ const previewBar = () => {
 
             let value = 0
             pieData.forEach(pieDataItem => {
-                value += pieDataItem.key
+                value += pieDataItem[item.key]
             })
             item.value = value
         })
         seriesData.push({
-            ...pie,
+            ...newPie,
         })
     })
+
+    console.log(seriesData)
     
 
     pieOption.backgroundColor = pieSetting.backgroundColor
