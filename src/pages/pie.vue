@@ -120,13 +120,36 @@
                                     </div>
                                 </div>
                                 <div class="detail-row">
+                                    <div class="segmentation color-block">
+                                        <span class="demonstration">扇label大小</span>
+                                        <el-input-number v-model="pieData.label.fontSize" :min="1" />
+                                    </div>
                                     <div class="segmentation position-block">
                                         <span class="demonstration">扇label位置(outside/inside/center)</span>
                                         <el-input v-model="pieData.label.position" class="m-2" />
                                     </div>
+                                </div>
+                                <div class="detail-row">
                                     <div class="segmentation font-block">
                                         <span class="demonstration">扇颜色</span>
                                         <el-color-picker show-alpha v-model="pieData.itemStyle.color" />
+                                    </div>
+                                    <div class="segmentation color-block">
+                                        <span class="demonstration">扇border颜色</span>
+                                        <el-color-picker show-alpha v-model="pieData.itemStyle.borderColor" />
+                                    </div>
+                                    <div class="segmentation color-block">
+                                        <span class="demonstration">扇border宽度</span>
+                                        <el-input-number v-model="pieData.itemStyle.borderWidth" :min="1" />
+                                    </div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="segmentation font-block">
+                                        <span class="demonstration">扇圆角</span>
+                                        <el-input-number v-model="pieData.itemStyle.borderRadius[0]" :min="0" />
+                                        <el-input-number v-model="pieData.itemStyle.borderRadius[1]" :min="0" />
+                                        <el-input-number v-model="pieData.itemStyle.borderRadius[2]" :min="0" />
+                                        <el-input-number v-model="pieData.itemStyle.borderRadius[3]" :min="0" />
                                     </div>
                                 </div>
                             </div>
@@ -191,10 +214,13 @@ let pie = {
             show: false,
             color: '#333',
             fontSize: 12,
-            position: 'insideTop'
+            position: 'outside'
         },
         itemStyle: {
             color: '#ffff00',
+            borderColor: '#fff',
+            borderWidth: 2,
+            borderRadius: [0, 0, 0, 0]
         }
     }]
 }
